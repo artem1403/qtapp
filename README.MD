@@ -1,13 +1,35 @@
 # Тренировочное Desktop-приложение
 
 
-
+## Запуск
+* Открыть консоль в текущей папке проекта
+* Инициировать виртуальное окружение `qt_app_env\Scripts\activate.bat`
+* Запустить скрипт `python QtDesignerScripts\start.py`
 
 
 # TODO
 * [ ] Попробовать накидать тот интерфейс, который я нарисовал (пофиг как это будет в коде)
-* [ ] Посмотреть [best practices](https://doc.qt.io/qtcreator/studio-qtquick-best-practices.html) по Qt
 
-## Ссылки
 
-* [Документация](https://doc.qt.io/qt-5/classes.html)
+## Структура приложения
+```
+QtDesignerScripts
+|    MainWindow.ui - Исходники интерфейса, редактировать только через QtDesigner
+|    MainWindow.py - Получен генератором pyuic5, внутри не менять, иначе затрется при след. генерации
+|    slot_functions.py - Функции для реакции на нажатия кнопок и прочего вынесены сюда
+|    start.py - файл старта интерфейса
+```
+
+
+### Как сгенерировать код из `ui` файла
+Файл с расширением `ui` мы делаем в `QtDesigner`, затем вызываем утилиту `pyuic5` и скармливаем ей наш файл с интерфейсом. Команда целиком:
+```bash
+pyuic5 mainwindow.ui -o MainWindow.py
+```
+Так как файл `MainWindow.py` меняется каждый раз, когда его пересобираешь, поэтому вызов вынес в файл `start.py`
+
+Команда старта приложения:
+```bash
+python QtDesignerScripts\start.py
+```
+
